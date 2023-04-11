@@ -1,68 +1,102 @@
-// Write function that plays a single round of RPS. It should take two parameters: playerSelection, computerSelection
-// const playerSelection = "ROCK";
-// const computerSelection = getComputerChoice();
-let playerScore = 0;
-let computerScore= 0 ;
-// let gameOn = true;
+const choices = document.querySelectorAll('.choices button');
+const userScoreSpan = document.getElementById('user-score');
+const computerScoreSpan = document.getElementById('computer-score');
+const message = document.querySelector('.message');
+const playAgainButton = document.getElementById('play-again');
 
-// console.log("player chose " + playerSelection);
-// console.log("computer chose " + computerSelection);
+let userScore = 0;
+let computerScore = 0;
 
-
-
-// Make your function's playerSelection parameter case-insensitive
-
-while (true) {
-let selection = prompt("Rock, Paper, Scissors?")
-const playerSelection = selection.toUpperCase();
-const computerSelection = getComputerChoice();
-
-let gameOn = true;
-
-console.log("player chose " + playerSelection);
-console.log("computer chose " + computerSelection);
-  // Function getComputerChoice(); to return Rock, Paper, Scissors at random
-  function getComputerChoice() {
-    let randomNumber = Math.floor(Math.random()*3)
-    switch(randomNumber) {
-      case 0:
-        return 'ROCK'
-      case 1:
-        return 'PAPER'
-      case 2:
-        return 'SCISSORS'
-    }
-  }
-
-  function playRound(playerSelection, computerSelection) {
-    // your code here!
-    // if playerSelection and computerSelection are same, it is a tie
-    if (playerSelection === computerSelection) {
-       console.log("it's a tie!")
-       console.log("player: " + playerScore + " " + "computer: " + computerScore)
-    }
-    else {
-  // list out all scenarios player wins
-      if ((playerSelection === 'ROCK' && computerSelection === "SCISSORS") || 
-      (playerSelection === 'PAPER' && computerSelection === "ROCK") || 
-      (playerSelection === 'SCISSORS' && computerSelection === "SCISSORS")) {
-        console.log("player wins!");
-        playerScore++;
-        console.log("player: " + playerScore + " " + "computer: " + computerScore)
-
-      }
-      else {
-        console.log("computer wins!");
-        computerScore++;
-        console.log("player: " + playerScore + " " + "computer: " + computerScore)
-      }
-    }
+function getComputerChoice() {
+  const choices = ['rock', 'paper', 'scissors'];
+  const randomNumber = Math.floor(Math.random() * 3);
+  return choices[randomNumber];
 }
 
-console.log(playRound(playerSelection, computerSelection));
+function win(userChoice, computerChoice) {
+  userScore++;
+  userScoreSpan.textContent = userScore;
+  computerScoreSpan.textContent = computerScore;
+  message.textContent = `${userChoice} beats ${computerChoice}. You win!`;
+}
 
-  if (playerScore === 5 || computerScore === 5) {
-    console.log("Game is over!")
-    break;
+function lose(userChoice, computerChoice) {
+  computerScore++;
+  userScoreSpan.textContent = userScore;
+  computerScoreSpan.textContent = computerScore;
+  message.textContent = `${computerChoice} beats ${userChoice}. You lose!`;
+}
+
+function draw(userChoice, computerChoice) {
+  userScoreSpan.textContent = userScore;
+  computerScoreSpan.textContent = computerScore;
+  message.textContent = `${userChoice} and ${computerChoice} are the same. It's a draw!`;
+}
+
+function game(userChoice) {
+  const computerChoice = getComputerChoice();
+
+  switch (userChoice + computerChoice) {
+    case 'rockscissors':
+    case 'paperrock':
+    case 'scissorspaper':
+      win(userChoice, computerChoice);
+      break;
+    case 'rockpaper':
+    case 'paperscissors':
+    case 'scissorsrock':
+      lose(userChoice, computerChoice);
+      break;
+    case 'rockrock':
+    case 'paperpaper':
+    case 'scissorsscissors':
+      draw(userChoice, computerChoice);
+      break;
+  }
+
+  if (userScore === 5 || computerScore === 5) {
+    if (userScore > computerScore) {
+      message.textContent = "You win the game!";
+    } else {
+      message.textContent = "You lose the game!";
+    }
+
+    for (const choice of choices) {
+      choice.disabled = true;
+    }
+
+    playAgainButton.style.display = "block";
   }
 }
+
+function resetGame() {
+  userScore = 0;
+  computerScore = 0;
+  userScoreSpan.textContent = userScore;
+  computerScoreSpan.textContent = computerScore;
+  message.textContent = "Make your choice!";
+}
+
+function enableButtons() {
+  for (const choice of choices) {
+    choice.disabled = false;
+  }
+  
+  playAgainButton.style.display = "none";
+}
+
+// add event listeners to the choice buttons
+for (const choice of choices) {
+  choice.addEventListener('click', function() {
+    game(this.id);
+  });
+}
+
+// add event listener to the play again button
+playAgainButton.addEventListener('click', function() {
+  resetGame();
+  enableButtons();
+});
+
+resetGame();
+enableButtons();

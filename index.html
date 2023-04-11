@@ -1,16 +1,23 @@
-<!-- Create a Rock-Paper-Scissors Game -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
-    <title>Rock Paper Scissors</title>
+  <meta charset="UTF-8">
+  <title>Rock Paper Scissors</title>
+  <link rel="stylesheet" href="style.css">
+  <script src = "script.js" defer></script>
 </head>
-<script src="script.js"></script>
-
 <body>
-    
+    <h1>Rock, Paper Scissors!</h1>
+    <div class="choices">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
+
+    <div class="result">
+        <p class="message">Make your choice!</p>
+        <p class="score">You: <span id="user-score">0</span> Computer: <span id="computer-score">0</span></p>
+        <button id="play-again">Play Again</button>
+  </div>
 </body>
 </html>
-<!-- Link directly to an external js file -->

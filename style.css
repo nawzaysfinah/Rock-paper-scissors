@@ -1,0 +1,60 @@
+h1 {
+    text-align: center;
+    font-size: 36px;
+  }
+  
+  #scoreboard {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+    font-size: 24px;
+  }
+  
+  #game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  .choices {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .choices button {
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #eee;
+    cursor: pointer;
+  }
+  
+  .choices button:hover {
+    background-color: #ddd;
+  }
+  
+  .result {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    font-size: 24px;
+  }
+  
+  .play-again button {
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #eee;
+    cursor: pointer;
+    display: flex;
+  }
+  
+  .play-again button:hover {
+    background-color: #ddd;
+  }
+  
